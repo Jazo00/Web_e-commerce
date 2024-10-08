@@ -1,11 +1,16 @@
 
 # Web_e-commerce repo
 
-=======
+## How to run
 
-# Project Overview
+- cd Client
+- npm install
+- npm run dev
 
-    Web_e-commerce repo
+### Notes
+
+- you can add Server Files in the root directory
+- no images for data images yet
 
 ## UI Features
 
@@ -31,14 +36,3 @@
     - [ ] New Password
   - ✅ Register
 - [ ] Login (Seller)
-
-### How to run
-
-- cd Client
-- npm install
-- npm run dev
-
-### Notes
-
-- you can add Server Files in the root directory
-- no images for data images yet
