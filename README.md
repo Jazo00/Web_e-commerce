@@ -1,34 +1,35 @@
-<<<<<<< HEAD
+
 # Web_e-commerce repo
+
 =======
 
 # Project Overview
 
     Web_e-commerce repo
 
-## ✅ UI Features
+## UI Features
 
-- [x] Navbar
-- [x] Profile
-- [x] Footer
-- [x] Home
-- [x] Shop Now
+- ✅ Navbar
+- ✅ Profile
+- ✅ Footer
+- ✅ Home
+- ✅ Shop Now
   - [ ] Product View
-- [x] Sell Now
-- [x] Trade Deal
+- ✅ Sell Now
+- ✅ Trade Deal
   - [ ] Product View
-- [x] Bidding Zone
+- ✅ Bidding Zone
   - [ ] Product View
-- [x] Trade Events
+- ✅ Trade Events
   - [ ] Product View
-- [x] About Us
-- [x] Login (Buyer)
-  - [x] Forgot Password
+- ✅ About Us
+- ✅ Login (Buyer)
+  - ✅ Forgot Password
     - [ ] Email Reset Link
     - [ ] Phone or Text
     - [ ] Verification Code
     - [ ] New Password
-  - [x] Register
+  - ✅ Register
 - [ ] Login (Seller)
 
 ### How to run
@@ -41,4 +42,3 @@
 
 - you can add Server Files in the root directory
 - no images for data images yet
->>>>>>> master
