@@ -5,12 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "start": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "build:css": "postcss index.css -o output.css",
     "watch:css": "postcss index.css -o output.css --watch"
-
   },
   "dependencies": {
     "flowbite": "^2.5.2",

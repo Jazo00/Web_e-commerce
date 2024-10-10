@@ -1,34 +1,21 @@
-require('dotenv').config();
-require('express-async-errors');
-const path = require('path');
 const express = require('express');
-const cors = require('cors');
-const corsOptions = require('./config/corsOptions');
+const dotenv = require('dotenv');
+const connectDB = require('./config/dbConn');
+
+// Load config
+dotenv.config();
+
+// Connect to database
+connectDB();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
-console.log(process.env.NODE_ENV);
-
-// connectDB();
-
-app.use(cors(corsOptions));
-
+// Init Middleware
 app.use(express.json());
 
-app.use('/', express.static(path.join(__dirname, 'public')));
+// Routes
+app.use('/homepage', require('./routes/homepage'));
 
-app.use('/', require('./routes/root'));
+const PORT = process.env.PORT || 5000;
 
-app.all('*', (req, res) => {
-  res.status(404);
-  if (req.accepts('html')) {
-    res.sendFile(path.join(__dirname, 'views', '404.html'));
-  } else if (req.accepts('json')) {
-    res.json({ message: '404 Not Found' });
-  } else {
-    res.type('txt').send('404 Not Found');
-  }
-});
-
-app.listen(PORT, '0.0.0.0', () => console.log(`Server is running on ${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
