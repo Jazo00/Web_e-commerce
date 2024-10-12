@@ -6,14 +6,18 @@ import { cn } from "@/lib/utils"
 const Card = React.forwardRef(({ className, onClick, ...props }, ref) => (
   <div
     ref={ref}
-    onClick={onClick} // Make the card clickable
+    onClick={onClick}
     className={cn(
-      "rounded-xl w-96 h-96 border bg-card text-card-foreground shadow-sm transition-transform duration-200 ease-in-out transform hover:cursor-pointer hover:scale-105", // Add hover effect
-      className
+      "rounded-xl w-96 h-96 border bg-card text-card-foreground shadow-sm transition-transform duration-200 ease-in-out transform",
+      className,
+      // Apply hover effect conditionally if not disabled
+      !props.disabled && "hover:cursor-pointer hover:scale-105"
     )}
-    {...props} />
-))
-Card.displayName = "Card"
+    {...props}
+  />
+));
+Card.displayName = "Card";
+
 
 const CardHeader = React.forwardRef(({ className, ...props }, ref) => (
   <div

@@ -3,8 +3,13 @@ import OfferPhoto from '../../assets/images/offer.png';
 import TradingPhoto from '../../assets/images/trading.png';
 import BiddingPhoto from '../../assets/images/bidding.png';
 import ShoppingPhoto from '../../assets/images/shopping.png';
-import { Accordion } from 'flowbite-react';
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 const About = () => {
   return (
@@ -64,45 +69,35 @@ const About = () => {
           </div>
 
           <div className='w-1/2'>
-            <Accordion >
-              <Accordion.Panel>
-                <Accordion.Title className='bg-black text-white hover:bg-gray-900'>
-                  <p className='text-2xl  text-center'>What is the difference between bidding and trading?</p>
-                </Accordion.Title>
-                <Accordion.Content>
-                  <p className='text-lg text-black-200'>
-                    Bidding is the process of making an offer to purchase an item at a specific price, while trading generally refers to buying and selling assets in a market.
-                  </p>
-                </Accordion.Content>
-              </Accordion.Panel>
-            </Accordion>
+          <Accordion type="single" collapsible>
+            <AccordionItem value="item-1" >
+              <AccordionTrigger className='bg-black text-white hover:bg-gray-900'>Bidding vs Trading</AccordionTrigger>
+              <AccordionContent className='bg'>
+              Bidding is the process of making an offer to purchase an item at a specific price, while trading generally refers to buying and selling assets in a market.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
 
-            <Accordion>
-              <Accordion.Panel>
-                <Accordion.Title>
-                  <p className='text-2xl text-center'>How do I place a bid on an Item?</p>
-                </Accordion.Title>
-                <Accordion.Content>
-                  <p className='text-lg text-black-200'>
-                    Bidding is the process of making an offer to purchase an item at a specific price, while trading generally refers to buying and selling assets in a market.
-                  </p>
-                </Accordion.Content>
-              </Accordion.Panel>
-            </Accordion>
+          <Accordion type="single" collapsible>
+            <AccordionItem value="item-1">
+              <AccordionTrigger>How do I place a bid on an Item?</AccordionTrigger>
+              <AccordionContent>
+              Bidding is the process of making an offer to purchase an item at a specific price, while trading generally refers to buying and selling assets in a market.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
 
-            
-            <Accordion>
-              <Accordion.Panel>
-                <Accordion.Title>
-                  <p className='text-2xl text-center'>How do I place a bid on an Item?</p>
-                </Accordion.Title>
-                <Accordion.Content>
-                  <p className='text-lg text-black-200'>
-                    Bidding is the process of making an offer to purchase an item at a specific price, while trading generally refers to buying and selling assets in a market.
-                  </p>
-                </Accordion.Content>
-              </Accordion.Panel>
-            </Accordion>
+          
+          <Accordion type="single" collapsible>
+            <AccordionItem value="item-1">
+              <AccordionTrigger>How do I place a bid on an Item?</AccordionTrigger>
+              <AccordionContent>
+              Bidding is the process of making an offer to purchase an item at a specific price, while trading generally refers to buying and selling assets in a market.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+
+
           </div>
         </div>
       </div>

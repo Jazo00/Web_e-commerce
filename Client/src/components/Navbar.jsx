@@ -3,12 +3,19 @@ import { Dropdown } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button"
 
-
-
 import SearchIcon from '../assets/icons/search.png'; // Adjust the path as necessary
 import CartIcon from '../assets/icons/shopping-cart.png';
 import UserIcon from '../assets/icons/user.png';
 
+import {
+    Sheet,
+    SheetContent,
+    SheetDescription,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+  } from "@/components/ui/sheet"
+  
 const Navbar = () => {
     const navigate = useNavigate();
 
@@ -18,6 +25,8 @@ const Navbar = () => {
   
     return (
         <>
+            
+
             <div className='flex justify-between items-center p-5'> 
                 <h1 className='text-4xl mx-2 font-bold'>S H E I N</h1>
 
@@ -37,9 +46,25 @@ const Navbar = () => {
                 </div>
 
                 <div className="flex items-center"> 
-                    <button className="flex items-center pr-3 focus:outline-none" type="button">
-                        <img src={CartIcon} alt="Cart" className="w-7 h-7 cursor-pointer" />
-                    </button>
+                  
+                    <Sheet>
+                        <SheetTrigger asChild>
+                            <button className="flex items-center pr-3 focus:outline-none" type="button">
+                                <img src={CartIcon} alt="Cart" className="w-7 h-7 cursor-pointer" />
+                            </button>
+                        </SheetTrigger>
+                        <SheetContent>
+                            <SheetHeader>
+                            <SheetTitle>Your Cart</SheetTitle>
+                            <SheetDescription className="flex flex-col">
+                                You have no items in your cart
+                                <Button disabled className="mt-3">
+                                    Checkout
+                                </Button>
+                            </SheetDescription>
+                            </SheetHeader>
+                        </SheetContent>
+                    </Sheet>
                     <Dropdown
                         inline
                         label={<img src={UserIcon} alt="User" className="w-7 h-7 cursor-pointer" />}
@@ -105,7 +130,7 @@ const Navbar = () => {
                             <Link to="/shop-now" className='w-full text-black block hover:bg-gray-100 text-center'>Shop Now</Link>
                         </Dropdown.Item>
                         <Dropdown.Item>
-                            <Link to="/sell-now" className='w-full text-black block hover:bg-gray-100 text-center'>Sell Now</Link>
+                            <Link to="/login-seller" className='w-full text-black block hover:bg-gray-100 text-center'>Sell Now</Link>
                         </Dropdown.Item>
                     </Dropdown>
                     <div className='w-10' />
