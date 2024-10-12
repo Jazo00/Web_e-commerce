@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import { Dropdown } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom';
+import { Button } from "@/components/ui/button"
+
+
 
 import SearchIcon from '../assets/icons/search.png'; // Adjust the path as necessary
 import CartIcon from '../assets/icons/shopping-cart.png';
@@ -45,7 +48,8 @@ const Navbar = () => {
                     >
                         <div className="dropdown-menu absolute right-0 z-10 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <Dropdown.Item>
-                                <Link to="/account" className='w-full text-center text-black block  hover:bg-gray-100'>
+                                
+                                <Link to="/account" className='w-full text-center text-black block  hover:bg-gray-100 focus:outline-none'>
                                     Profile
                                 </Link>
                             </Dropdown.Item>
@@ -83,18 +87,17 @@ const Navbar = () => {
                     </Dropdown>
 
 
-                    <button 
-                        className='bg-black text-white px-10 py-2 rounded-3xl mx-2'
-                        onClick={handleLoginClick} // Call the function on click
-                        >
+                    <Button className="px-10"rounded="lg" onClick={handleLoginClick} >
                         Login
-                    </button>
+                    </Button>
                 </div>
             </div>
 
             <nav>
                 <div className='flex justify-center items-center border-2 py-3 bg-black text-white'>
-                    <Link className='p-1 px-10' to="/">Home</Link>
+                    <Button asChild>
+                        <Link className='p-1 px-10' to="/">Home</Link>
+                    </Button>
                     
                     {/* Shop Now Dropdown */}
                     <Dropdown inline label="Shop Now" className='mx-2 px-1'>
@@ -119,8 +122,10 @@ const Navbar = () => {
                             <Link to="/trade-events" className='w-full text-black block hover:bg-gray-100 text-center'>Trade Events</Link>
                         </Dropdown.Item>
                     </Dropdown>
+                    <Button asChild>
 
                     <Link className='p-1 px-10' to="/about">About Us</Link>
+                    </Button>
                 </div>
             </nav>
         </>
