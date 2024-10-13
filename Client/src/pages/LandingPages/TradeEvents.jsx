@@ -4,6 +4,7 @@ import {
   Card,
   CardContent,
 } from "@/components/ui/card"
+
 const TradeEvents = () => {
 
   const cardEventsData = [ //change to actual data
@@ -13,12 +14,10 @@ const TradeEvents = () => {
     { id: 4, name: "Event Name 4", location: "Sample Location", date: 'September 14, 2024', time: '10:00 am', imageUrl: "https://via.placeholder.com/400x400" },
     { id: 5, name: "Event Name 5", location: "Sample Location", date: 'September 14, 2024', time: '10:00 am', imageUrl: "https://via.placeholder.com/400x400" },
     { id: 6, name: "Event Name 6", location: "Sample Location", date: 'September 14, 2024', time: '10:00 am', imageUrl: "https://via.placeholder.com/400x400" },
-
-
   ];
   return (
     <div>
-            <div
+      <div
           className="cursor-pointer w-full h-96 rounded-3xl text-white p-14 py-10 mb-12" 
           style={{
               backgroundImage: `url(${EventBanner})`,
@@ -30,13 +29,7 @@ const TradeEvents = () => {
         <button className='bg-white text-black text-2xl rounded-3xl p-2 px-5'>Shop Now</button>
       </div>
 
-  
-
-
-    <div className="grid grid-cols-3 gap-y-6 justify-center py-5">
-
-    
-
+      <div className="grid grid-cols-3 gap-y-6 justify-center py-5">
         {cardEventsData.map(card => (
           <Card key={card.id}>
             <CardContent className="relative ">
@@ -63,7 +56,7 @@ const TradeEvents = () => {
       
 
       </div>
-      </div>
+    </div>
   );
 };
 

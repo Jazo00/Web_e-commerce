@@ -9,8 +9,7 @@
 
 ### Notes
 
-- you can add Server Files in the root directory
-- no images for data images yet
+- added new dependecies (shadcn for components)
 
 ## UI Features
 
@@ -19,14 +18,14 @@
 - ✅ Footer
 - ✅ Home
 - ✅ Shop Now
-  - [ ] Product View
+  - ✅ Product View
 - ✅ Sell Now
 - ✅ Trade Deal
-  - [ ] Product View
+  - ✅ Product View
 - ✅ Bidding Zone
-  - [ ] Product View
+  - ✅ Product View
 - ✅ Trade Events
-  - [ ] Product View
+  - ✅ Product View
 - ✅ About Us
 - ✅ Login (Buyer)
   - ✅ Forgot Password
@@ -35,4 +34,4 @@
     - [ ] Verification Code
     - [ ] New Password
   - ✅ Register
-- [ ] Login (Seller)
+- ✅ Login (Seller)
