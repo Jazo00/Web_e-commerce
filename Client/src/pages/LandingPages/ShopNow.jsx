@@ -12,7 +12,6 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-  PaginationEllipsis,
 } from "@/components/ui/pagination";
 
 import { useNavigate } from "react-router-dom";
@@ -31,13 +30,13 @@ const ShopNow = () => {
     setCurrentPage(1); // Reset to the first page on filter change
   }
 
-  const FeaturedCardsData = [
+  const FeaturedCardsData = [ //change to actual data
     { id: 1, name: "Sample Item 1", price: "P 100.00", imageUrl: "https://via.placeholder.com/400x300" },
     { id: 2, name: "Sample Item 2", price: "P 200.00", imageUrl: "https://via.placeholder.com/400x300" },
     { id: 3, name: "Sample Item 3", price: "P 300.00", imageUrl: "https://via.placeholder.com/400x300" },
   ];
 
-  const CardsData = [
+  const CardsData = [ //change to actual data
     { id: 1, name: "Sample Item 1", price: "P 100.00", imageUrl: "https://via.placeholder.com/400x300" },
     { id: 2, name: "Sample Item 2", price: "P 200.00", imageUrl: "https://via.placeholder.com/400x300" },
     { id: 3, name: "Sample Item 3", price: "P 300.00", imageUrl: "https://via.placeholder.com/400x300" },
