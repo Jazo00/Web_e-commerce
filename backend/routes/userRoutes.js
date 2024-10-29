@@ -13,8 +13,9 @@ router
   .route('/')
   .get(getAllUsers)
   .put(performUserAction)
-  .get(getUserDetails)
   .delete(deleteUser)
   .post(createUser);
+
+router.route('/:id').get(getUserDetails);
 
 module.exports = router;

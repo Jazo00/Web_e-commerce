@@ -65,28 +65,29 @@ const performUserAction = async (req, res) => {
 // @route GET /admin/users/:userId
 // @access Private (Admin only)
 const getUserDetails = async (req, res) => {
-  const user = await User.findById(req.params.userId)
+  const { id } = req.params;
+  const user = await User.findById(id)
     .select('username email accountType status')
     .lean();
   if (!user) {
     return res.status(404).json({ message: 'User not found' });
   }
 
-  const adminActions = await Admin.findOne({
-    'userManagement.userId': req.params.userId,
-  })
-    .select('userManagement')
-    .populate({
-      path: 'userManagement.userId',
-      select: 'username email accountType status',
-    })
-    .lean();
+  // const adminActions = await Admin.findOne({
+  //   'userManagement.userId': req.params.userId,
+  // })
+  //   .select('userManagement')
+  //   .populate({
+  //     path: 'userManagement.userId',
+  //     select: 'username email accountType status',
+  //   })
+  //   .lean();
 
-  const actionHistory = adminActions?.userManagement?.filter(
-    (action) => action.userId.toString() === req.params.userId
-  );
+  // const actionHistory = adminActions?.userManagement?.filter(
+  //   (action) => action.userId.toString() === req.params.userId
+  // );
 
-  res.json({ user, actionHistory });
+  res.json(user);
 };
 
 const deleteUser = async (req, res) => {
