@@ -1,10 +1,11 @@
+require('express-async-errors');
 const express = require('express');
 const dotenv = require('dotenv');
 const connectDB = require('./config/dbConn');
-const offersRoutes = require('./routes/offers');  
+const offersRoutes = require('./routes/offers');
 const tradeItemsRoutes = require('./routes/tradeItem');
 const bidsRoutes = require('./routes/bids');
-const faqsRoutes = require('./routes/faqs');  
+const faqsRoutes = require('./routes/faqs');
 
 // Load config
 dotenv.config();
@@ -18,10 +19,12 @@ const app = express();
 app.use(express.json());
 
 // Use the routes
-app.use('/routes', offersRoutes);   
+app.use('/routes', offersRoutes);
 app.use('/routes', tradeItemsRoutes);
 app.use('/routes', bidsRoutes);
 app.use('/routes', faqsRoutes);
+
+app.use('/admins', require('./routes/adminRoutes'));
 
 const PORT = process.env.PORT || 5000;
 
