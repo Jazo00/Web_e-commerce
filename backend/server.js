@@ -4,10 +4,10 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/dbConn');
 const corsOptions = require('./config/corsOptions');
-// const offersRoutes = require('./routes/offers');
-// const tradeItemsRoutes = require('./routes/tradeItem');
-// const bidsRoutes = require('./routes/bids');
-// const faqsRoutes = require('./routes/faqs');
+const offersRoutes = require('./routes/offers');
+const tradeItemsRoutes = require('./routes/tradeItem');
+const bidsRoutes = require('./routes/bids');
+const faqsRoutes = require('./routes/faqs');
 
 const PORT = process.env.PORT || 5000;
 
@@ -25,10 +25,10 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // Use the routes
-// app.use('/routes', offersRoutes);
-// app.use('/routes', tradeItemsRoutes);
-// app.use('/routes', bidsRoutes);
-// app.use('/routes', faqsRoutes);
+app.use('/routes', offersRoutes);
+app.use('/routes', tradeItemsRoutes);
+app.use('/routes', bidsRoutes);
+app.use('/routes', faqsRoutes);
 
 app.use('/auth', require('./routes/authRoutes'));
 app.use('/admins', require('./routes/adminRoutes'));
