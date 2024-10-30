@@ -14,7 +14,6 @@ import NotFound from './Utils/NotFound';
 import ItemView from './components/other/ItemView';
 import LoginSeller from './pages/auth/seller/loginSeller';
 import RegisterSeller from './pages/auth/seller/RegistrationSeller'; // Importing RegisterSeller page
-import SellerShopRegistration from './pages/auth/seller/seller_shop_registration';
 
 import 'flowbite';
 
@@ -27,8 +26,6 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login-seller" element={<LoginSeller />} />
         <Route path="/register-seller" element={<RegisterSeller />} /> {/* Seller Registration Route */}
-        <Route path="/register-seller-shop" element={<SellerShopRegistration />} />
-
         
 
         {/* Landing Layout Routes with Navbar and Footer */}
