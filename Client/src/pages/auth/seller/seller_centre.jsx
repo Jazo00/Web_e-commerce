@@ -2,6 +2,15 @@
 
 import React, { useState } from "react";
 
+// UI here is not 100% complete as it is not an exact copy of the figma. 
+// Exec Lead na daw bahala magadjust sa UI. Placeholder UI here just to be able to 
+
+/*
+    - UI still needs to be corrected by Exec Lead.
+    - Lots of placeholders. 
+    - No functionality yet.
+*/
+
 const SellerCentre = () => {
   const [activeTab, setActiveTab] = useState("all");
 
