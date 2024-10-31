@@ -13,7 +13,9 @@ import Profile from './pages/Settings/Profile';
 import NotFound from './Utils/NotFound';
 import ItemView from './components/other/ItemView';
 import LoginSeller from './pages/auth/seller/loginSeller';
-import RegisterSeller from './pages/auth/seller/RegistrationSeller'; // Importing RegisterSeller page
+import RegisterSeller from './pages/auth/seller/RegistrationSeller'; 
+import SellerCentre from "./pages/auth/seller/seller_centre";
+
 
 import 'flowbite';
 
@@ -25,8 +27,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login-seller" element={<LoginSeller />} />
-        <Route path="/register-seller" element={<RegisterSeller />} /> {/* Seller Registration Route */}
-        
+        <Route path="/register-seller" element={<RegisterSeller />} />
+
+        {/* Seller Centre Route */}
+        <Route path="/seller-centre" element={<SellerCentre />} />
 
         {/* Landing Layout Routes with Navbar and Footer */}
         <Route path="/" element={<LandingLayout />}>
