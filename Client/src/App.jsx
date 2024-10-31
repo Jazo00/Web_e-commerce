@@ -26,10 +26,12 @@ function App() {
         {/* Authentication Routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+
+        {/* Seller Parts 
+            Note: Not sure where these should go or stay sa hierarchy ng folders.
+          */}
         <Route path="/login-seller" element={<LoginSeller />} />
         <Route path="/register-seller" element={<RegisterSeller />} />
-
-        {/* Seller Centre Route */}
         <Route path="/seller-centre" element={<SellerCentre />} />
 
         {/* Landing Layout Routes with Navbar and Footer */}

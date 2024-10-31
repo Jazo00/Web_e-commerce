@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
     - UI still needs to be corrected by Exec Lead.
     - A few validations have been added but not to all. 
     - No functionality yet.
+    - Not connected to DB.
 */
 
 const RegisterSeller = () => {
