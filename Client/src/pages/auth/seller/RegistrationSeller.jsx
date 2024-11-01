@@ -1,68 +1,118 @@
-import { useState } from "react";
+// RegisterSeller.jsx
+
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-
-// UI here is not 100% complete as it is not an exact copy of the figma. 
-// Exec Lead na daw bahala magadjust sa UI. Placeholder UI here just to be able to 
-
-/*
-    - UI still needs to be corrected by Exec Lead.
-    - A few validations have been added but not to all. 
-    - No functionality yet.
-*/
 
 const RegisterSeller = () => {
     const [isRegistered, setIsRegistered] = useState(false);
     const [tab, setTab] = useState("shopInformation");
     const [showModal, setShowModal] = useState(false);
-    const [email, setEmail] = useState(""); // Added email state
+    const [modalContent, setModalContent] = useState(""); // For dynamic modal content
+    const [email, setEmail] = useState("");
     const [shopName, setShopName] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("+63");
+    const [phoneNumber, setPhoneNumber] = useState("");
     const [otp, setOtp] = useState("");
     const [isAgreed, setIsAgreed] = useState(false);
     const [errors, setErrors] = useState({});
+    const [shopInfoComplete, setShopInfoComplete] = useState(false);
+    const [businessErrors, setBusinessErrors] = useState({});
+    const [sellerType, setSellerType] = useState("");
+    const [registeredName, setRegisteredName] = useState("");
+    const [businessName, setBusinessName] = useState("");
+    const [industryCategory, setIndustryCategory] = useState("");
+    const maxPhoneDigits = 10;
+    const maxOtpDigits = 6;
 
     const handleStartRegistration = () => setIsRegistered(true);
 
     const handleNext = () => {
         const validationErrors = validateShopInformation();
         if (Object.keys(validationErrors).length === 0) {
-            setShowModal(true); // Proceed only if no validation errors
+            setShopInfoComplete(true); // Enable access to business information
+            setTab("businessInformation"); // Automatically navigate to business information
         } else {
-            setErrors(validationErrors); // Set errors if any
+            setErrors(validationErrors);
         }
     };
 
+    // Validate Shop Information fields
     const validateShopInformation = () => {
         const validationErrors = {};
-        if (!shopName) validationErrors.shopName = "Shop name is required";
+        if (!shopName || !/^[a-zA-Z\s-_&]+$/.test(shopName)) validationErrors.shopName = "Shop name can only include letters, spaces, -, _, &";
         if (!email || !/^\S+@\S+\.\S+$/.test(email)) validationErrors.email = "Enter a valid email address";
-        if (!phoneNumber || !/^(\+63|0)\d{10}$/.test(phoneNumber)) validationErrors.phoneNumber = "Enter a valid phone number";
-        if (!otp || otp.length !== 6) validationErrors.otp = "OTP must be 6 digits";
+        if (!phoneNumber || phoneNumber.length !== maxPhoneDigits) validationErrors.phoneNumber = "Enter a valid 10-digit phone number";
+        if (!otp || otp.length !== maxOtpDigits) validationErrors.otp = "OTP must be exactly 6 digits";
+        setErrors(validationErrors);
         return validationErrors;
     };
 
-    const handleModalDone = () => {
-        setShowModal(false); // Close modal without further validation for simplicity
+    const validateBusinessInformation = () => {
+        const errors = {};
+        if (!sellerType) errors.sellerType = "Please select a seller type";
+        if (!registeredName || !/^[a-zA-Z\s-']+$/.test(registeredName)) errors.registeredName = "Registered name can only include letters, spaces, -, and '";
+        if (!businessName || !/^[a-zA-Z\s-']+$/.test(businessName)) errors.businessName = "Business name can only include letters, spaces, -, and '";
+        if (!industryCategory) errors.industryCategory = "Please select an industry category";
+        if (!isAgreed) errors.agreement = "You must agree to proceed";
+        setBusinessErrors(errors);
+        return errors;
     };
 
+    // Re-check Shop Information whenever a field changes
+    useEffect(() => {
+        const validationErrors = validateShopInformation();
+        setShopInfoComplete(Object.keys(validationErrors).length === 0);
+    }, [email, shopName, phoneNumber, otp]);
+
+    const handlePhoneNumberChange = (e) => {
+        const input = e.target.value.replace(/\D/g, ""); // Only allow numbers
+        if (input.length <= maxPhoneDigits) setPhoneNumber(input);
+    };
+
+    const handleOtpChange = (e) => {
+        const input = e.target.value.replace(/\D/g, ""); // Only allow numbers
+        if (input.length <= maxOtpDigits) setOtp(input);
+    };
+
+    const handleBusinessNext = () => {
+        const errors = validateBusinessInformation();
+        if (Object.keys(errors).length === 0) {
+            alert("Business registration complete!");
+        }
+    };
+
+    const handleBack = () => setTab("shopInformation");
+
+    const handleModalDone = () => setShowModal(false);
     const handleCheckboxChange = () => setIsAgreed(!isAgreed);
+
+    const openTermsModal = (content) => {
+        setModalContent(content);
+        setShowModal(true);
+    };
 
     if (isRegistered) {
         return (
             <div className="bg-gray-800 min-h-screen flex flex-col items-center justify-center text-white">
-                <div className="w-full max-w-lg p-4 bg-gray-900 flex items-center justify-between">
+                <div className="w-full max-w-lg p-4 bg-gray-900 flex items-center justify-center">
                     <h1 className="text-lg font-semibold">LOGO Seller Registration</h1>
                 </div>
                 <div className="w-full max-w-lg bg-gray-100 p-6 rounded-md text-black">
-                    <div className="flex justify-around mb-6">
-                        <button onClick={() => setTab("shopInformation")} className={`py-2 px-4 rounded-full ${tab === "shopInformation" ? "bg-black text-white" : "bg-gray-200"}`}>
-                            Shop Information
-                        </button>
-                        <button onClick={() => setTab("businessInformation")} className={`py-2 px-4 rounded-full ${tab === "businessInformation" ? "bg-black text-white" : "bg-gray-200"}`}>
-                            Business Information
-                        </button>
+                    {/* Progress Indicator */}
+                    <div className="flex justify-center mb-6 items-center">
+                        <div className="flex items-center space-x-4 w-full">
+                            <div className="flex items-center">
+                                <span className="text-sm">Shop</span>
+                                <div className={`ml-2 h-4 w-4 rounded-full ${tab === "shopInformation" ? "bg-black" : "bg-gray-300"}`}></div>
+                            </div>
+                            <div className="flex-grow h-0.5 bg-gray-300"></div> {/* Connecting line */}
+                            <div className="flex items-center">
+                                <div className={`mr-2 h-4 w-4 rounded-full ${tab === "businessInformation" ? "bg-black" : "bg-gray-300"}`}></div>
+                                <span className="text-sm">Business</span>
+                            </div>
+                        </div>
                     </div>
 
+                    {/* Shop Information */}
                     {tab === "shopInformation" && (
                         <div className="space-y-4">
                             <div>
@@ -71,7 +121,9 @@ const RegisterSeller = () => {
                                     type="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
+                                    onBlur={() => setErrors(validateShopInformation())}
                                     className="w-full p-2 border rounded-md"
+                                    placeholder="example@email.com"
                                 />
                                 {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
                             </div>
@@ -81,7 +133,9 @@ const RegisterSeller = () => {
                                     type="text"
                                     value={shopName}
                                     onChange={(e) => setShopName(e.target.value)}
+                                    onBlur={() => setErrors(validateShopInformation())}
                                     className="w-full p-2 border rounded-md"
+                                    placeholder="Enter your shop name"
                                 />
                                 {errors.shopName && <p className="text-red-500 text-sm">{errors.shopName}</p>}
                             </div>
@@ -91,12 +145,18 @@ const RegisterSeller = () => {
                             </div>
                             <div>
                                 <label className="block mb-2">Phone Number</label>
-                                <input
-                                    type="text"
-                                    value={phoneNumber}
-                                    onChange={(e) => setPhoneNumber(e.target.value)}
-                                    className="w-full p-2 border rounded-md"
-                                />
+                                <div className="flex items-center border rounded-md p-2">
+                                    <span className="mr-2">+63</span>
+                                    <input
+                                        type="text"
+                                        value={phoneNumber}
+                                        onChange={handlePhoneNumberChange}
+                                        onBlur={() => setErrors(validateShopInformation())}
+                                        className="w-full p-2 border-none outline-none"
+                                        placeholder="1234567890"
+                                    />
+                                    <span className="ml-2 text-gray-500">{phoneNumber.length}/{maxPhoneDigits}</span>
+                                </div>
                                 {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber}</p>}
                             </div>
                             <div className="flex items-center gap-2">
@@ -104,8 +164,10 @@ const RegisterSeller = () => {
                                     type="text"
                                     placeholder="OTP"
                                     value={otp}
-                                    onChange={(e) => setOtp(e.target.value)}
+                                    onChange={handleOtpChange}
+                                    onBlur={() => setErrors(validateShopInformation())}
                                     className="w-full p-2 border rounded-md"
+                                    maxLength="6"
                                 />
                                 <button className="bg-gray-700 px-4 py-2 rounded-md text-white">Send</button>
                                 <button className="bg-gray-200 px-4 py-2 rounded-md">Resend</button>
@@ -115,7 +177,8 @@ const RegisterSeller = () => {
                         </div>
                     )}
 
-                    {tab === "businessInformation" && (
+                    {/* Business Information */}
+                    {tab === "businessInformation" && shopInfoComplete && (
                         <div className="space-y-4">
                             <p className="text-sm text-gray-700">
                                 Please note that the information provided in this registration form will be used to generate invoices and process transactions...
@@ -124,91 +187,76 @@ const RegisterSeller = () => {
                                 <label className="block mb-2">Seller Type</label>
                                 <div className="flex items-center gap-4">
                                     <label className="flex items-center gap-2">
-                                        <input type="radio" name="sellerType" className="form-radio" />
+                                        <input type="radio" name="sellerType" value="Sole Proprietorship" onChange={(e) => setSellerType(e.target.value)} />
                                         Sole Proprietorship
                                     </label>
                                     <label className="flex items-center gap-2">
-                                        <input type="radio" name="sellerType" className="form-radio" />
+                                        <input type="radio" name="sellerType" value="Partnership/Corporation" onChange={(e) => setSellerType(e.target.value)} />
                                         Partnership/Corporation
                                     </label>
                                 </div>
+                                {businessErrors.sellerType && <p className="text-red-500 text-sm">{businessErrors.sellerType}</p>}
                             </div>
                             <div>
                                 <label className="block mb-2">Registered Name</label>
-                                <input type="text" className="w-full p-2 border rounded-md" placeholder="Full Name" />
-                            </div>
-                            <div>
-                                <label className="block mb-2">Registered Address</label>
-                                <button className="w-full p-2 border rounded-md text-left">Province/City/Barangay</button>
+                                <input
+                                    type="text"
+                                    value={registeredName}
+                                    onChange={(e) => setRegisteredName(e.target.value)}
+                                    className="w-full p-2 border rounded-md"
+                                    placeholder="Full Name"
+                                />
+                                {businessErrors.registeredName && <p className="text-red-500 text-sm">{businessErrors.registeredName}</p>}
                             </div>
                             <div>
                                 <label className="block mb-2">Business Name / Trade Name</label>
-                                <input type="text" className="w-full p-2 border rounded-md" />
+                                <input
+                                    type="text"
+                                    value={businessName}
+                                    onChange={(e) => setBusinessName(e.target.value)}
+                                    className="w-full p-2 border rounded-md"
+                                    placeholder="Business Name"
+                                />
+                                {businessErrors.businessName && <p className="text-red-500 text-sm">{businessErrors.businessName}</p>}
                             </div>
                             <div>
                                 <label className="block mb-2">Industry Category</label>
-                                <select className="w-full p-2 border rounded-md">
-                                    <option>Select</option>
-                                    <option>Retail</option>
-                                    <option>Electronics</option>
-                                    <option>Fashion</option>
-                                    <option>Home Goods</option>
+                                <select
+                                    value={industryCategory}
+                                    onChange={(e) => setIndustryCategory(e.target.value)}
+                                    className="w-full p-2 border rounded-md"
+                                >
+                                    <option value="">Select</option>
+                                    <option value="Retail">Retail</option>
+                                    <option value="Electronics">Electronics</option>
+                                    <option value="Fashion">Fashion</option>
+                                    <option value="Home Goods">Home Goods</option>
                                 </select>
+                                {businessErrors.industryCategory && <p className="text-red-500 text-sm">{businessErrors.industryCategory}</p>}
                             </div>
                             <div className="flex items-center gap-2">
                                 <input type="checkbox" id="agree" checked={isAgreed} onChange={handleCheckboxChange} />
                                 <label htmlFor="agree" className="text-sm text-gray-700">
-                                    I agree to these <a href="#" className="text-blue-500">Terms and Conditions</a> and <a href="#" className="text-blue-500">Data Privacy Policy</a>
+                                    I agree to these <button className="text-blue-500" onClick={() => openTermsModal("Terms and Conditions")}>Terms and Conditions</button> and <button className="text-blue-500" onClick={() => openTermsModal("Data Privacy Policy")}>Data Privacy Policy</button>
                                 </label>
                             </div>
-                            <button className="bg-black text-white w-full py-2 rounded-md mt-4" disabled={!isAgreed}>Next</button>
+                            {businessErrors.agreement && <p className="text-red-500 text-sm">{businessErrors.agreement}</p>}
+                            <div className="flex justify-between">
+                                <button className="bg-gray-200 text-black w-full py-2 rounded-md mr-2" onClick={handleBack}>Back</button>
+                                <button className="bg-black text-white w-full py-2 rounded-md ml-2" disabled={!isAgreed} onClick={handleBusinessNext}>Next</button>
+                            </div>
                         </div>
                     )}
                 </div>
 
+                {/* Modal for Terms and Conditions or Privacy Policy */}
                 {showModal && (
                     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                         <div className="bg-white p-6 rounded-lg w-full max-w-md text-black">
-                            <h2 className="text-lg font-semibold mb-4">Add a New Address</h2>
-                            <div>
-                                <label className="block mb-2">Full Name</label>
-                                <input type="text" className="w-full p-2 border rounded-md" />
-                            </div>
-                            <div className="mt-4">
-                                <label className="block mb-2">Address</label>
-                                <button className="w-full p-2 border rounded-md text-left">Province/City/Barangay</button>
-                                <div className="border mt-2 rounded-md overflow-hidden">
-                                    <table className="w-full text-left">
-                                        <thead className="bg-gray-200">
-                                            <tr>
-                                                <th className="p-2">Province</th>
-                                                <th className="p-2">City</th>
-                                                <th className="p-2">Barangay</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td className="p-2">Abra</td>
-                                                <td className="p-2">-</td>
-                                                <td className="p-2">-</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="p-2">Agusan Del Norte</td>
-                                                <td className="p-2">-</td>
-                                                <td className="p-2">-</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="p-2">Agusan Del Sur</td>
-                                                <td className="p-2">-</td>
-                                                <td className="p-2">-</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div className="flex justify-between mt-6">
-                                <button className="px-4 py-2 bg-gray-200 rounded-md" onClick={() => setShowModal(false)}>Cancel</button>
-                                <button className="px-4 py-2 bg-black text-white rounded-md" onClick={handleModalDone}>Done</button>
+                            <h2 className="text-lg font-semibold mb-4">{modalContent}</h2>
+                            <p className="text-sm text-gray-700">[Placeholder text for {modalContent}. This would include details about {modalContent} for users to read and understand before agreeing.]</p>
+                            <div className="flex justify-end mt-6">
+                                <button className="px-4 py-2 bg-black text-white rounded-md" onClick={handleModalDone}>Close</button>
                             </div>
                         </div>
                     </div>

@@ -9,6 +9,7 @@ import React, { useState } from "react";
     - UI still needs to be corrected by Exec Lead.
     - Lots of placeholders. 
     - No functionality yet.
+    - Not connected to DB.
 */
 
 const SellerCentre = () => {
