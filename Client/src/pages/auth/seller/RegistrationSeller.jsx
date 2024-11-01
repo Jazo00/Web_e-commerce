@@ -1,7 +1,31 @@
 // RegisterSeller.jsx
 
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+
+//header component
+const Header = () => {
+    const navigate = useNavigate();
+
+    return (
+        <header className="w-full p-4 bg-gray-900 text-white flex items-center justify-between">
+            {/* Logo Placeholder */}
+            <div className="flex items-center">
+                <div className="w-8 h-8 bg-gray-500 rounded-full mr-3"></div> {/* Replace nalang actual logo */}
+                <span className="text-lg font-semibold">Seller Registration</span>
+            </div>
+            
+            {/* Login Button */}
+            <button
+                className="bg-white text-black px-4 py-2 rounded-full font-semibold hover:bg-gray-200"
+                onClick={() => navigate("/login-seller")}
+            >
+                Login
+            </button>
+        </header>
+    );
+};
 
 const RegisterSeller = () => {
     const [isRegistered, setIsRegistered] = useState(false);
@@ -92,6 +116,8 @@ const RegisterSeller = () => {
 
     if (isRegistered) {
         return (
+            <>
+            <Header className="w-full p-4 bg-gray-900 text-center text-white" />
             <div className="bg-gray-800 min-h-screen flex flex-col items-center justify-center text-white">
                 <div className="w-full max-w-lg p-4 bg-gray-900 flex items-center justify-center">
                     <h1 className="text-lg font-semibold">LOGO Seller Registration</h1>
@@ -262,10 +288,13 @@ const RegisterSeller = () => {
                     </div>
                 )}
             </div>
+            </>
         );
     }
 
     return (
+        <>
+        <Header className="w-full p-4 bg-gray-900 text-center text-white" />
         <div className="flex justify-center items-center w-screen h-screen">
             <div className="bg-gray-200 w-1/2 h-[500px] rounded-3xl border border-black p-10 flex flex-col items-center justify-center space-y-5">
                 <img
@@ -278,6 +307,7 @@ const RegisterSeller = () => {
                 <Button className="bg-black text-white px-14 py-3 rounded-md mt-4" onClick={handleStartRegistration}>Start Registration</Button>
             </div>
         </div>
+        </>
     );
 };
 
