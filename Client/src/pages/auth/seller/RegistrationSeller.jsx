@@ -118,11 +118,11 @@ const RegisterSeller = () => {
         return (
             <>
             <Header className="w-full p-4 bg-gray-900 text-center text-white" />
-            <div className="bg-gray-800 min-h-screen flex flex-col items-center justify-center text-white">
+            <div className="bg-gray-100 min-h-screen flex flex-col items-center justify-center text-white">
                 <div className="w-full max-w-lg p-4 bg-gray-900 flex items-center justify-center">
                     <h1 className="text-lg font-semibold">LOGO Seller Registration</h1>
                 </div>
-                <div className="w-full max-w-lg bg-gray-100 p-6 rounded-md text-black">
+                <div className="w-full max-w-lg bg-gray-300 p-6 rounded-md text-black">
                     {/* Progress Indicator */}
                     <div className="flex justify-center mb-6 items-center">
                         <div className="flex items-center space-x-4 w-full">
