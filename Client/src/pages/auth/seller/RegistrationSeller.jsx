@@ -220,9 +220,14 @@ const RegisterSeller = () => {
     return (
         <div className="flex justify-center items-center w-screen h-screen">
             <div className="bg-gray-200 w-1/2 h-[500px] rounded-3xl border border-black p-10 flex flex-col items-center justify-center space-y-5">
-                <h1 className="font-bold text-4xl">Welcome to Tara Auct!</h1>
-                <p>To get started, sign up as a seller by completing the necessary details.</p>
-                <Button className="px-14" onClick={handleStartRegistration}>Start Registration</Button>
+                <img
+                    src="/src/assets/images/seller-register.png"
+                    alt="seller-register-icon"
+                    className="w-25 h-40 mb-5"
+                />
+                <h1 className="font-bold text-4xl text-center">Welcome to Tara Auct!</h1>
+                <p className="text-center">To get started, sign up as a seller by completing the necessary details.</p>
+                <Button className="bg-black text-white px-14 py-3 rounded-md mt-4" onClick={handleStartRegistration}>Start Registration</Button>
             </div>
         </div>
     );
