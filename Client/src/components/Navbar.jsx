@@ -15,9 +15,15 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import { useContext, useState } from 'react';
+import { UserContext } from '@/contexts/userContext';
+import LogoutDialog from '@/pages/auth/Logout';
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const { user } = useContext(UserContext);
 
   const handleLoginClick = () => {
     navigate('/login'); // Navigate to the login page
@@ -76,6 +82,8 @@ const Navbar = () => {
               </SheetHeader>
             </SheetContent>
           </Sheet>
+
+          {user.id && (
           <Dropdown
             inline
             label={
@@ -139,18 +147,27 @@ const Navbar = () => {
               </Dropdown.Item>
               <Dropdown.Item>
                 <Link
-                  to='/'
                   className='w-full text-center text-black block hover:bg-gray-100'
+                  onClick={() => setIsDialogOpen(true)}
+
                 >
                   Logout
                 </Link>
               </Dropdown.Item>
             </div>
           </Dropdown>
+          )}
 
-          <Button className='px-10' rounded='lg' onClick={handleLoginClick}>
-            Login
-          </Button>
+          {user.id ? (
+            <Button className='px-10' rounded='lg' onClick={() => navigate('/account')}>
+              Hi, {user.Username}!
+            </Button>
+          ):(
+            <Button className='px-10' rounded='lg' onClick={handleLoginClick}>
+                  Login
+            </Button>
+          )} 
+          
         </div>
       </div>
 
@@ -217,6 +234,12 @@ const Navbar = () => {
           </Button>
         </div>
       </nav>
+
+
+      <LogoutDialog
+        isOpen={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+      />
     </>
   );
 };

@@ -9,6 +9,7 @@ export const LandingLayout = () => {
             <Navbar />
             <div className="container mx-auto flex-grow p-4 px-32">
                 <Outlet /> {/* This will render the matched child routes */}
+
             </div>
             <Footer />
         </div>

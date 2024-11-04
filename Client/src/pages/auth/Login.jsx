@@ -1,14 +1,20 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import loginBg from '../../assets/images/login-bg.png';
 import ForgotPassword from '../auth/ForgotPassword';
-import api from '@/api/api';
 import { useNavigate } from 'react-router-dom';
+import { useLoginUser } from '@/hooks/auth';
+import { toast } from '@/hooks/use-toast';
+import { saveUserData } from '@/Utils/authStorage';
+import { UserContext } from '@/contexts/userContext';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
+  const { updateUser } = useContext(UserContext); 
+
+  const {mutate } = useLoginUser();
 
   const onEmailChanged = (e) => {
     setEmail(e.target.value);
@@ -31,17 +37,44 @@ function Login() {
 
   const navigate = useNavigate();
 
-  const login = async (e) => {
+
+  const onSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await api.post('/auth/login', { email, password });
+    mutate(
+      { email, password },
+        {
+            onSuccess:  (data) => {
+                toast({
+                    variant: 'success',
+                    title: "Login Successful",
+                    description: "You have successfully Logged In!",
+                });
+                console.log('User data:', data.user);
+                saveUserData(data.user)
 
-    if (response.status === 200) {
-      navigate('/admin-dashboard');
-    } else {
-      console.log('di ka naka login bobo');
-    }
-  };
+                 // Update user context directly after saving
+                updateUser({
+                  id: data.user._id,
+                  Username: data.user.username, 
+                  Email: data.user.email,
+                  AccountType: data.user.accountType,
+                  Photo: data.user.photo, 
+                });
+
+                if(data.user.accountType ==="buyer") navigate('/')
+                if(data.user.accountType ==="admin") navigate('/admin-dashboard');
+            },
+            onError: (error) => {
+                toast({
+                    variant: 'failed',
+                    title: "Login Failed",
+                    description: error.response?.data?.message || "An error occurred. Please try again.",
+                });
+            },
+        }
+    );
+  }
 
   return (
     <div
@@ -146,7 +179,7 @@ function Login() {
 
               <button
                 className='bg-black text-white rounded-xl text-lg p-2.5 w-full'
-                onClick={login}
+                onClick={onSubmit}
               >
                 Log In
               </button>

@@ -8,7 +8,7 @@ const offersRoutes = require('./routes/offers');
 const tradeItemsRoutes = require('./routes/tradeItem');
 const bidsRoutes = require('./routes/bids');
 const faqsRoutes = require('./routes/faqs');
-
+const buyerRoutes = require('./routes/buyerRoutes')
 const PORT = process.env.PORT || 5000;
 
 // Load config
@@ -29,6 +29,8 @@ app.use('/routes', offersRoutes);
 app.use('/routes', tradeItemsRoutes);
 app.use('/routes', bidsRoutes);
 app.use('/routes', faqsRoutes);
+
+app.use('/buyers', buyerRoutes);;
 
 app.use('/auth', require('./routes/authRoutes'));
 app.use('/admins', require('./routes/adminRoutes'));
