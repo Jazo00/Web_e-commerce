@@ -1,11 +1,11 @@
 const express = require('express');
 const {
   getAllUsers,
-  performUserAction,
   getUserDetails,
   deleteUser,
   createUser,
   getAllAdmins,
+  updateUser,
 } = require('../controllers/userControllers');
 
 const router = express.Router();
@@ -13,7 +13,7 @@ const router = express.Router();
 router
   .route('/')
   .get(getAllUsers)
-  .put(performUserAction)
+  .patch(updateUser)
   .delete(deleteUser)
   .post(createUser);
 

@@ -27,50 +27,6 @@ const getAllAdmins = async (req, res) => {
   res.status(200).json(admins);
 };
 
-// @desc Perform an action on a user (suspend, approve, delete, warn) and update status
-// @route POST /admin/users/:userId/action
-// @access Private (Admin only)
-const performUserAction = async (req, res) => {
-  const { action, notes } = req.body;
-  const targetUserId = req.params.userId;
-
-  const user = await User.findById(targetUserId);
-  if (!user) {
-    return res.status(404).json({ message: 'User not found' });
-  }
-
-  let updatedStatus;
-  switch (action) {
-    case 'suspend':
-      updatedStatus = 'Suspended';
-      break;
-    case 'approve':
-      updatedStatus = 'Verified';
-      break;
-    case 'deleted':
-      updatedStatus = 'Deleted';
-      break;
-    case 'warn':
-      // Additional warning logic can go here if needed
-      break;
-    default:
-      return res.status(400).json({ message: 'Invalid action' });
-  }
-
-  if (updatedStatus) user.status = updatedStatus;
-  await user.save();
-
-  // admin.userManagement.push({
-  //   action,
-  //   userId: targetUserId,
-  //   notes,
-  // });
-
-  res.json({
-    message: `Action '${action}' performed on user ${user.username}`,
-  });
-};
-
 // @desc Get user details and admin's action history on that user
 // @route GET /admin/users/:userId
 // @access Private (Admin only)
@@ -153,11 +109,34 @@ const createUser = async (req, res) => {
   res.status(201).json({ message: `New user created` });
 };
 
+const updateUser = async (req, res) => {
+  const { id, username, email } = req.body;
+
+  console.log(req.body);
+
+  if (![id, username, email].every(Boolean)) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
+  const foundUser = await User.findById(id).exec();
+
+  if (!foundUser) {
+    return res.status(400).json({ message: 'User not found' });
+  }
+
+  foundUser.username = username;
+  foundUser.email = email;
+
+  await foundUser.save();
+
+  res.status(200).json({ message: 'User updated' });
+};
+
 module.exports = {
   getAllUsers,
   getAllAdmins,
-  performUserAction,
   getUserDetails,
   deleteUser,
   createUser,
+  updateUser,
 };

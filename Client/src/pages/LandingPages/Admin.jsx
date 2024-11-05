@@ -4,9 +4,12 @@ import { useTheme } from '../../contexts/ThemeContexts'; // Import useTheme
 import { useEffect, useState } from 'react';
 import api from '@/api/api';
 import { toast } from '@/hooks/use-toast';
+import EditAdminModal from './EditAdminModal'; // Import your EditAdminModal component
 
 const Admin = () => {
   const [admins, setAdmins] = useState([]);
+  const [selectedAdmin, setSelectedAdmin] = useState(null); // State for the selected admin
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
 
   useEffect(() => {
     const fetchAdmins = async () => {
@@ -26,6 +29,16 @@ const Admin = () => {
   }, []);
 
   const { isDarkMode } = useTheme(); // Access dark mode state
+
+  const handleEditClick = (admin) => {
+    setSelectedAdmin(admin); // Set the selected admin to be edited
+    setIsModalOpen(true); // Open the modal
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false); // Close the modal
+    setSelectedAdmin(null); // Reset selected admin
+  };
 
   return (
     <div
@@ -131,6 +144,7 @@ const Admin = () => {
                             ? 'hover:text-blue-400'
                             : 'hover:text-blue-600'
                         }`}
+                        onClick={() => handleEditClick(admin)} // Handle edit button click
                       >
                         Edit
                       </button>
@@ -151,6 +165,15 @@ const Admin = () => {
           </div>
         </section>
       </div>
+      {/* Render the EditAdminModal if it's open */}
+      {isModalOpen && (
+        <EditAdminModal
+          admins={admins}
+          setAdmins={setAdmins}
+          admin={selectedAdmin}
+          onClose={closeModal}
+        />
+      )}
     </div>
   );
 };
