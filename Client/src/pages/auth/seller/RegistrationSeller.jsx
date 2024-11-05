@@ -9,13 +9,12 @@ const Header = () => {
     const navigate = useNavigate();
 
     return (
-        <header className="w-full p-4 bg-gray-900 text-white flex items-center justify-between">
-            {/* Logo Placeholder */}
-            <div className="flex items-center">
-                <div className="w-8 h-8 bg-gray-500 rounded-full mr-3"></div> {/* Replace nalang actual logo */}
-                <span className="text-lg font-semibold">Seller Registration</span>
+        <header className="w-full p-4 bg-black text-white flex items-center justify-between">
+            <div className="flex flex-col items-start">
+                <span className="text-4xl font-bold ml-1">Tara Auct!</span>
+                <span className="text-base font-semibold mt-1 ml-2">Seller Registration</span>
             </div>
-            
+
             {/* Login Button */}
             <button
                 className="bg-white text-black px-4 py-2 rounded-full font-semibold hover:bg-gray-200"
@@ -119,21 +118,20 @@ const RegisterSeller = () => {
             <>
             <Header className="w-full p-4 bg-gray-900 text-center text-white" />
             <div className="bg-gray-100 min-h-screen flex flex-col items-center justify-center text-white">
-                <div className="w-full max-w-lg p-4 bg-gray-900 flex items-center justify-center">
-                    <h1 className="text-lg font-semibold">LOGO Seller Registration</h1>
-                </div>
-                <div className="w-full max-w-lg bg-gray-300 p-6 rounded-md text-black">
+                <div className="w-full max-w-xl bg-gray-300 p-9 rounded-lg border-2 border-black text-black">
                     {/* Progress Indicator */}
                     <div className="flex justify-center mb-6 items-center">
                         <div className="flex items-center space-x-4 w-full">
-                            <div className="flex items-center">
-                                <span className="text-sm">Shop</span>
-                                <div className={`ml-2 h-4 w-4 rounded-full ${tab === "shopInformation" ? "bg-black" : "bg-gray-300"}`}></div>
+
+                            <div className="flex flex-col items-center">
+                                <div className={`h-4 w-4 rounded-full ${tab === "shopInformation" ? "bg-black" : "bg-white"}`}></div>
+                                <span className="text-base mt-1">Shop Information</span>
                             </div>
-                            <div className="flex-grow h-0.5 bg-gray-300"></div> {/* Connecting line */}
-                            <div className="flex items-center">
-                                <div className={`mr-2 h-4 w-4 rounded-full ${tab === "businessInformation" ? "bg-black" : "bg-gray-300"}`}></div>
-                                <span className="text-sm">Business</span>
+                            <div className="flex-grow h-0.5 bg-white mb-7"></div> {/* Connecting line */}
+
+                            <div className="flex flex-col items-center">
+                                <div className={`h-4 w-4 rounded-full ${tab === "businessInformation" ? "bg-black" : "bg-white"}`}></div>
+                                <span className="text-base">Business Information</span>
                             </div>
                         </div>
                     </div>
@@ -195,8 +193,8 @@ const RegisterSeller = () => {
                                     className="w-full p-2 border rounded-md"
                                     maxLength="6"
                                 />
-                                <button className="bg-gray-700 px-4 py-2 rounded-md text-white">Send</button>
-                                <button className="bg-gray-200 px-4 py-2 rounded-md">Resend</button>
+                                <button className="bg-white px-4 py-2 rounded-md text-black">Send</button>
+                                <button className="bg-black px-4 py-2 rounded-md text-white">Resend</button>
                             </div>
                             {errors.otp && <p className="text-red-500 text-sm">{errors.otp}</p>}
                             <button className="bg-black text-white w-full py-2 rounded-md mt-4" onClick={handleNext}>Next</button>
