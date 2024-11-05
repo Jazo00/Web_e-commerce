@@ -5,6 +5,7 @@ const {
   getUserDetails,
   deleteUser,
   createUser,
+  getAllAdmins,
 } = require('../controllers/userControllers');
 
 const router = express.Router();
@@ -15,6 +16,8 @@ router
   .put(performUserAction)
   .delete(deleteUser)
   .post(createUser);
+
+router.route('/admins').get(getAllAdmins);
 
 router.route('/:id').get(getUserDetails);
 

@@ -11,7 +11,7 @@ const Admin = () => {
   useEffect(() => {
     const fetchAdmins = async () => {
       try {
-        const response = await api.get('/users/');
+        const response = await api.get('/users/admins/');
         setAdmins(response.data);
       } catch (error) {
         if (error.response) {

@@ -6,15 +6,25 @@ const bcrypt = require('bcrypt');
 // @route GET /admin/users
 // @access Private (Admin only)
 const getAllUsers = async (req, res) => {
-  const users = await User.find()
-    .select('username email accountType status')
-    .lean();
+  const users = await User.find({
+    accountType: { $in: ['seller', 'buyer'] },
+  }).lean();
 
   if (!users?.length) {
     return res.status(400).json({ message: 'No users found' });
   }
 
   res.status(200).json(users);
+};
+
+const getAllAdmins = async (req, res) => {
+  const admins = await User.find({ accountType: 'admin' }).lean();
+
+  if (!admins?.length) {
+    return res.status(400).json({ message: 'No admins found' });
+  }
+
+  res.status(200).json(admins);
 };
 
 // @desc Perform an action on a user (suspend, approve, delete, warn) and update status
@@ -145,6 +155,7 @@ const createUser = async (req, res) => {
 
 module.exports = {
   getAllUsers,
+  getAllAdmins,
   performUserAction,
   getUserDetails,
   deleteUser,
