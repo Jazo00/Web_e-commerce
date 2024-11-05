@@ -18,6 +18,7 @@ import {
 import { useContext, useState } from 'react';
 import { UserContext } from '@/contexts/userContext';
 import LogoutDialog from '@/pages/auth/Logout';
+import CartSheetContent from './other/cartSidebar';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ const Navbar = () => {
   return (
     <>
       <div className='flex justify-between items-center p-5'>
-        <h1 className='text-4xl mx-2 font-bold'>S H E I N</h1>
+        <h1 className='text-4xl mx-2 font-bold'>TARA AUCT!</h1>
 
         {/* Search Bar Container */}
         <div className='relative w-full max-w-xl mx-10 flex flex-grow justify-center'>
@@ -74,10 +75,8 @@ const Navbar = () => {
               <SheetHeader>
                 <SheetTitle>Your Cart</SheetTitle>
                 <SheetDescription className='flex flex-col'>
-                  You have no items in your cart
-                  <Button disabled className='mt-3'>
-                    Checkout
-                  </Button>
+                 <CartSheetContent />
+                
                 </SheetDescription>
               </SheetHeader>
             </SheetContent>
