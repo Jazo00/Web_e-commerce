@@ -11,14 +11,35 @@ const getAllAdmins = async (req, res) => {
 };
 
 const createAdmin = async (req, res) => {
-  const { userId, userManagement, reports, tradeMonitoring } = req.body;
+  const {
+    username,
+    password,
+    email,
+    status,
+    userManagement,
+    reports,
+    tradeMonitoring,
+  } = req.body;
 
-  if (![userId, userManagement, reports, tradeMonitoring].every(Boolean)) {
+  if (
+    ![
+      username,
+      password,
+      email,
+      status,
+      userManagement,
+      reports,
+      tradeMonitoring,
+    ].every(Boolean)
+  ) {
     return res.status(400).json({ message: 'All fields are required' });
   }
 
   const adminObject = {
-    userId,
+    username,
+    password,
+    email,
+    status,
     userManagement,
     reports,
     tradeMonitoring,
@@ -30,9 +51,29 @@ const createAdmin = async (req, res) => {
 };
 
 const updateAdmin = async (req, res) => {
-  const { id, userId, userManagement, reports, tradeMonitoring } = req.body;
+  const {
+    id,
+    username,
+    password,
+    email,
+    status,
+    userManagement,
+    reports,
+    tradeMonitoring,
+  } = req.body;
 
-  if (![id, userId, userManagement, reports, tradeMonitoring].every(Boolean)) {
+  if (
+    ![
+      id,
+      username,
+      password,
+      email,
+      status,
+      userManagement,
+      reports,
+      tradeMonitoring,
+    ].every(Boolean)
+  ) {
     return res.status(400).json({ message: 'All fields are required' });
   }
 
@@ -42,7 +83,10 @@ const updateAdmin = async (req, res) => {
     return res.status(400).json({ message: 'Admin not found' });
   }
 
-  foundAdmin.userId = userId;
+  foundAdmin.username = username;
+  foundAdmin.password = password;
+  foundAdmin.email = email;
+  foundAdmin.status = status;
   foundAdmin.userManagement = userManagement;
   foundAdmin.reports = reports;
   foundAdmin.tradeMonitoring = tradeMonitoring;

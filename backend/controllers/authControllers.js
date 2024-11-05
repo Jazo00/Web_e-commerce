@@ -6,7 +6,6 @@ const bcrypt = require('bcrypt');
 // @access Public
 const login = async (req, res) => {
   const { email, password } = req.body;
-  
 
   if (!email || !password) {
     return res.status(400).json({ message: 'All fields are required' });
@@ -15,12 +14,13 @@ const login = async (req, res) => {
   const foundUser = await User.findOne({ email }).exec();
 
   if (!foundUser) {
-    return res.status(400).json({ message: 'No user Found' });
+    return res.status(400).json({ message: 'No account found' });
   }
 
   const match = await bcrypt.compare(password, foundUser.password);
 
-  if (!match) return res.status(400).json({ message: 'password does not match' });
+  if (!match)
+    return res.status(400).json({ message: 'Password does not match' });
 
   res.status(200).json({ message: 'Login successfully', user: foundUser });
 };
@@ -48,21 +48,22 @@ const registerBuyer = async (req, res) => {
       username,
       email,
       password: hashedPassword,
-      accountType: 'buyer', 
+      accountType: 'buyer',
     });
 
     // Save the new user to the database
     await newUser.save();
 
-    res.status(200).json({ message: 'User registered successfully', user: newUser });
+    res
+      .status(200)
+      .json({ message: 'User registered successfully', user: newUser });
   } catch (error) {
     console.error('Error registering user:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };
 
-
 module.exports = {
   login,
-  registerBuyer
+  registerBuyer,
 };
