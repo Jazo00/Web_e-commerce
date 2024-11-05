@@ -76,6 +76,11 @@ function Login() {
     );
   }
 
+  //access point for seller login
+  const handleSellerLogin = () => {
+    navigate('/login-seller');
+  };
+
   return (
     <div
       className='w-screen h-screen flex items-end justify-around relative px-16 pt-16'
@@ -191,6 +196,12 @@ function Login() {
               </div>
               <button className='border-black border text-black rounded-xl text-ml p-2 w-full'>
                 Log In with Google
+              </button>
+              <button
+                className='mt-4 border-black border text-black rounded-xl text-ml p-2 w-full'
+                onClick={handleSellerLogin} 
+              >
+                Login as Seller
               </button>
               <div className='flex items-center justify-center mt-4'>
                 <sub className='mr-1 mb-1 text-md'> New User?</sub>
